@@ -103,6 +103,14 @@ contract RSP {
                 rooms[roomNum].taker.addr.transfer(rooms[roomNum].taker.playerBetAmount);
         }
     }
-    rooms[roomNum].gameStatus = GameStatus.STATUS_COMPLETE; //게임이 종료되었으므로 게임 상태 변경 
+    rooms[roomNum].gameStatus = GameStatus.STATUS_COMPLETE; //게임이 종료되었으므로 게임 상태 변경
 }
+function retGameStatus(uint roomNum) public view returns(address) {
+        if(rooms[roomNum].originator.playerStatus == PlayerStatus.STATUS_WIN) {
+            return rooms[roomNum].originator.addr;
+        } else if (rooms[roomNum].originator.playerStatus == PlayerStatus.STATUS_LOSE) {
+            return rooms[roomNum].taker.addr;
+        }else {
+            return address(0x0);
+        }
 }
